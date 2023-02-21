@@ -1,12 +1,24 @@
 package com.company.customerdataservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Customer
+@Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@Table(name = "customer")
+public class Customer implements Serializable
 {
 
     // attributes
+    @Id
+    @Column(name = "customer_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String firstName;
     private String lastName;
     private String email;
