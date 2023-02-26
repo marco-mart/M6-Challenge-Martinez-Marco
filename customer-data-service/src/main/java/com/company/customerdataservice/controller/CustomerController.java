@@ -55,11 +55,11 @@ public class CustomerController
      *
      * Response Status: 204 No Content
      */
-    @DeleteMapping("/customers")
+    @DeleteMapping("/customers/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCustomer(@RequestBody Customer customer)
+    public void deleteCustomer(@PathVariable int id)
     {
-        customerRepo.delete(customer);
+        customerRepo.deleteById(id);
     }
 
 

@@ -113,7 +113,7 @@ public class CustomerRepositoryTest
         // ACT
 
         // delete originalCustomer
-        customerRepo.delete(originalCustomer);
+        customerRepo.deleteById(originalCustomer.getId());
 
         // Query DB for deleted customer
         Optional<Customer> result = customerRepo.findById(originalCustomer.getId());
@@ -208,9 +208,9 @@ public class CustomerRepositoryTest
 
         // ACT
 
-        Assert.assertTrue(customerRepo.findByState("New Mexico").size() == 2);
+        Assert.assertEquals(customerRepo.findByState("New Mexico").size(), 2);
 
-        Assert.assertTrue(customerRepo.findByState("New York").size() == 1);
+        Assert.assertEquals(customerRepo.findByState("New York").size(), 1);
 
 
     }
