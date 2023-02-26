@@ -6,11 +6,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.Optional;
 import static org.junit.Assert.*;
 
-@RunWith(SpringRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 public class CustomerRepositoryTest
 {
@@ -34,7 +34,6 @@ public class CustomerRepositoryTest
 
         // Act
         Customer customer = new Customer();
-        customer.setId(1);
         customer.setFirstName("Joe");
         customer.setLastName("Shmoe");
         customer.setEmail("flyeaglesfly1@gmail.com");
@@ -50,9 +49,10 @@ public class CustomerRepositoryTest
         // saves Customer to customer table and gives it a unique ID
         customerRepo.save(customer);
 
-        Optional<Customer> customer1 = customerRepo.findById(customer.getId());
+        // we use optional because it is not certain that we will get anything back
+        Optional<Customer> customerCopy = customerRepo.findById(customer.getId());
 
         // Assert
-        assertEquals(customer1.get(), customer);
+        assertEquals(customerCopy.get(), customer);
     }
 }
