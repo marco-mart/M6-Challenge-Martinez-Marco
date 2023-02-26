@@ -13,8 +13,8 @@ import java.util.Optional;
 public class CustomerController
 {
 
-//    @Autowired
-//    CustomerRepository customerRepo;
+    @Autowired
+    CustomerRepository customerRepo;
 
     /**
      * HTTP Method: POST
@@ -28,7 +28,7 @@ public class CustomerController
     @ResponseStatus(HttpStatus.CREATED)
     public Customer addCustomer(@RequestBody Customer customer)
     {
-        return customer;// customerRepo.save(customer);
+        return customerRepo.save(customer);
     }
 
 
@@ -44,7 +44,7 @@ public class CustomerController
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateCustomer(@RequestBody Customer updatedCustomer)
     {
-        // customerRepo.save(updatedCustomer);
+        customerRepo.save(updatedCustomer);
     }
 
     /**
@@ -59,7 +59,7 @@ public class CustomerController
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCustomer(@RequestBody Customer customer)
     {
-        // customerRepo.delete(customer);
+        customerRepo.delete(customer);
     }
 
 
@@ -75,9 +75,9 @@ public class CustomerController
     @ResponseStatus(HttpStatus.OK)
     public Customer getCustomerById(@PathVariable int id)
     {
-        // Optional<Customer> result =  customerRepo.findById(id);
+        Optional<Customer> result =  customerRepo.findById(id);
 
-        return null;// result.isPresent() ? result.get() : null;
+        return result.isPresent() ? result.get() : null;
     }
 
     /**
@@ -93,6 +93,6 @@ public class CustomerController
     public List<Customer> getCustomersByState(@PathVariable String state)
     {
         // customerRepo may return an empty list
-        return null;// customerRepo.findByState(state);
+        return customerRepo.findByState(state);
     }
 }
