@@ -19,8 +19,8 @@ public class CustomerController
     /**
      * HTTP Method: POST
      * Endpoint: "/customers"
-     * Request body: new Customer object
-     * Response body: newly added Customer object
+     * Request body: Customer object
+     * Response body: Customer object
      *
      * Response Status: 201 Created
      */
@@ -35,7 +35,7 @@ public class CustomerController
     /**
      * HTTP Method: PUT
      * Endpoint: "/customers"
-     * Request body: updated Customer object
+     * Request body: Customer object
      * Response body: n/a
      *
      * Response Status: 204 No Content
