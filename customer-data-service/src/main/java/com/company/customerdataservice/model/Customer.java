@@ -10,7 +10,6 @@ import java.util.Objects;
 @Table(name = "customer")
 public class Customer implements Serializable
 {
-
     // attributes
 
     /**

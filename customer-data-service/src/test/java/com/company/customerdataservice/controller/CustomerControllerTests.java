@@ -1,11 +1,13 @@
 package com.company.customerdataservice.controller;
 
 import com.company.customerdataservice.model.Customer;
+import com.company.customerdataservice.repository.CustomerRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -20,6 +22,9 @@ public class CustomerControllerTests
 {
     @Autowired
     private MockMvc mockMvc;
+
+    @MockBean
+    CustomerRepository customerRepository;
 
     private ObjectMapper mapper = new ObjectMapper();
 
@@ -126,6 +131,7 @@ public class CustomerControllerTests
 
         // Create new customer
         Customer customer = new Customer();
+        customer.setId(3);
         customer.setFirstName("Rylan");
         customer.setLastName("Larko");
         customer.setEmail("drakefan@gmail.com");
@@ -142,12 +148,35 @@ public class CustomerControllerTests
 
         // ACT
         mockMvc.perform(
-                delete("/customers")                        // Perform DELETE
-                        .content(customerJson)                 // Set request body
-                        .contentType(MediaType.APPLICATION_JSON)        // Tell server that it's JSON
+                        post("/customers")                                 // Perform the POST request
+                                .content(customerJson)                           // Set the request body
+                                .contentType(MediaType.APPLICATION_JSON)            // Tell the server that it is JSON format
+                )
+                .andDo(print())                                             // Print results to console
+                .andExpect(status().isCreated());                         // Assert status code is 204
+
+//
+//        System.out.println("\n\n\n\n****************************\n\n\n\n");
+//
+//
+//        // get customer back with correct id
+//        String json = result.getResponse().getContentAsString();
+//        customer = (Customer) mapper.readValue(json, Customer.class);
+//
+//
+//        // format URI to have customer created above's id
+//        String uri = String.format("/customers/%d", customer.getId());
+//
+//        System.out.println("\n\n\n\n" + uri + "\n\n\n\n");
+//
+
+        // ACT
+        mockMvc.perform(
+                delete("/customers/3")                        // Perform DELETE
         )
                 .andDo(print())                                         // Print results to Console
                 .andExpect(status().isNoContent());                     // Assert status code 204
+
     }
 
     /**
