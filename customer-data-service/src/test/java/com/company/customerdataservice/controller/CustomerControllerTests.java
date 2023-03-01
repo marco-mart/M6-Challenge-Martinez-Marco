@@ -29,6 +29,11 @@ public class CustomerControllerTests
     private ObjectMapper mapper = new ObjectMapper();
 
     /**
+     * We are only testing for the controller to send back the correct response because we test
+     * the correctness of the Customer repository elsewhere.
+     */
+
+    /**
      * NOTE: WE DO NOT PROVIDE AN ID BECAUSE THE DATABASE AUTOMATICALLY GENERATES ONE FOR THE OBJECT.
      */
 
@@ -87,6 +92,8 @@ public class CustomerControllerTests
     {
         // ARRANGE
 
+        // PUT and POST on the repository side is the same function
+
         // Create new customer
         Customer customer = new Customer();
         customer.setFirstName("Marco");
@@ -118,8 +125,8 @@ public class CustomerControllerTests
      * Tests Deleting an existing customer
      *
      * HTTP Method: DELETE
-     * Endpoint: "/customers"
-     * Request body: Customer object
+     * Endpoint: "/customers/{id}"
+     * Request body: n/a
      * Response body: n/a
      *
      * Response Status: 204 No Content
@@ -129,46 +136,7 @@ public class CustomerControllerTests
     {
         // ARRANGE
 
-        // Create new customer
-        Customer customer = new Customer();
-        customer.setId(3);
-        customer.setFirstName("Rylan");
-        customer.setLastName("Larko");
-        customer.setEmail("drakefan@gmail.com");
-        customer.setCompany("Chico's Tacos");
-        customer.setPhone("1-(575)891-1121");
-        customer.setAddress1("500 N Golf St");
-        customer.setAddress2("789 Locust Ave");
-        customer.setCity("Pasadena");
-        customer.setState("California");
-        customer.setPostalCode("91001");
-        customer.setCountry("United States");
-
-        String customerJson = mapper.writeValueAsString(customer);
-
-        // ACT
-        mockMvc.perform(
-                        post("/customers")                                 // Perform the POST request
-                                .content(customerJson)                           // Set the request body
-                                .contentType(MediaType.APPLICATION_JSON)            // Tell the server that it is JSON format
-                )
-                .andDo(print())                                             // Print results to console
-                .andExpect(status().isCreated());                         // Assert status code is 204
-
-//
-//        System.out.println("\n\n\n\n****************************\n\n\n\n");
-//
-//
-//        // get customer back with correct id
-//        String json = result.getResponse().getContentAsString();
-//        customer = (Customer) mapper.readValue(json, Customer.class);
-//
-//
-//        // format URI to have customer created above's id
-//        String uri = String.format("/customers/%d", customer.getId());
-//
-//        System.out.println("\n\n\n\n" + uri + "\n\n\n\n");
-//
+        // Because we test the repository elsewhere, we only test for the correct response.
 
         // ACT
         mockMvc.perform(
@@ -194,9 +162,10 @@ public class CustomerControllerTests
     {
         // ARRANGE
 
+        // Because we test the repository elsewhere, we only test for the correct response.
+
         // ACT
 
-        // find customer with id = 1 (if Customer exists)
         mockMvc.perform(
                 get("/customers/1")
         )
@@ -217,6 +186,10 @@ public class CustomerControllerTests
     @Test
     public void shouldFindAllCustomersByState() throws Exception
     {
+        // ARRANGE
+
+        // Because we test the repository elsewhere, we only test for the correct response.
+
         // ACT
         mockMvc.perform(
                 get("/customers/state/New Mexico")
